@@ -1,1 +1,2 @@
-# AngularJS-001-Angular1
+# AngularJS - Angular 1
+
