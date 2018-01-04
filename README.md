@@ -29,7 +29,7 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 
 
 
-## Observações - Aula 1
+### Observações - Aula 1 (Estrutura)
 
  * Angular Expression (AE) - `{{ }}` serve para abrir lacunas em nossas views, que por sua vez passam a funcionar como templates.
  * Data binding (associação de dado) - Um dado disponibilizado por um controller para a view
@@ -38,7 +38,7 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 
 
 
-## Observações - Aula 2
+### Observações - Aula 2 (Comunicando com o back-end)
 
  * Diretiva ng-repeat - repete a criação de uma marcação HTML
  * Serviço $http - Requisição assíncrono, ou seja, não bloqueia o uso da aplicação enquanto é executado
