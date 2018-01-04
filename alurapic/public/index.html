@@ -9,8 +9,9 @@
 
         <script src="js/lib/angular.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/controllers/fotos-controller.js"></script>
     </head>
-    <body>
+    <body ng-controller="FotosController">
         <div class="container">
             <h1 class="text-center">Alurapic</h1>
             <img class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">
