@@ -1,4 +1,4 @@
-# AngularJS - Angular 1
+﻿# AngularJS - Angular 1
 Um framework MVC no lado do cliente criado como um projeto interno da Google e liberado para o público em 2009, ele tem como foco a criação de Single Page Applications (SPA’s). Este tipo de aplicação não recarrega a página durante seu uso, dando uma experiência mais fluída para o usuário.
 
  
@@ -29,7 +29,7 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 
 ---
 
-### Observações - Aula 1 (Estrutura)
+### Observações - Aula 2 (Estrutura)
 
  * Angular Expression (AE) - `{{ }}` serve para abrir lacunas em nossas views, que por sua vez passam a funcionar como templates.
  * Data binding (associação de dado) - Um dado disponibilizado por um controller para a view
@@ -38,8 +38,14 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 
 ---
 
-### Observações - Aula 2 (Comunicando com o back-end)
+### Observações - Aula 3 (Comunicando com o back-end)
 
  * Diretiva ng-repeat - repete a criação de uma marcação HTML
  * Serviço $http - Requisição assíncrono, ou seja, não bloqueia o uso da aplicação enquanto é executado
  * $http retorna uma promise, ou seja, se a promessa for cumprida, teremos os dados, caso contrário, ficaremos a ver navios
+
+---
+
+### Observações - Aula 4 (Diretivas)
+
+ * 
