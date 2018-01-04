@@ -53,11 +53,31 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
  * ddo.restrict - restrições da forma de chamada da diretiva
  * ddo.transclude/ng-transclude - Mecanismo de transclusão (Inserir HTML)
  
- Propriedade isolada da diretiva, ou seja, basta passar a diretuva com o nome da propriedade para ser substituído
+ #### Exemplo
+ 
  ``` js
- ddo.scope = {
+ angular.module('minhasDiretivas', [])
+.directive('meuPainel', function() {
+
+	/* Directive Definition Object */
+	var ddo = {};
+
+	/*
+	A - Atribute - <div meu-painel></div>
+	E - Element  - <meu-painel></meu-painel>
+	*/
+	ddo.restrict = "AE";
+
+	ddo.scope = {
 		titulo : '@'
 	};
+
+	ddo.transclude = true;
+
+	ddo.templateUrl = 'js/directives/meu-painel.html';
+
+	return ddo; 
+});
  ```
  
  ```html 
@@ -65,3 +85,11 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
       <img class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">
 </meu-painel>
 ```
+
+
+#### Restrições 
+
+> * `A` - only matches attribute name
+> * `E` - only matches element name
+> * `C` - only matches class name
+> * `M` - only matches comment
