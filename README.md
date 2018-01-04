@@ -48,4 +48,20 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 
 ### Observações - Aula 4 (Diretivas)
 
- * 
+ * Diretivas são componentes reutilizáveis
+ * ddo - Directive Definition Object
+ * ddo.restrict - restrições da forma de chamada da diretiva
+ * ddo.transclude/ng-transclude - Mecanismo de transclusão (Inserir HTML)
+ 
+ Propriedade isolada da diretiva, ou seja, basta passar a diretuva com o nome da propriedade para ser substituído
+ ``` js
+ ddo.scope = {
+		titulo : '@'
+	};
+ ```
+ 
+ ```html 
+<meu-painel ng-repeat="foto in fotos" titulo="{{foto.titulo}}">
+      <img class="img-responsive center-block" src="{{foto.url}}" alt="{{foto.titulo}}">
+</meu-painel>
+```
