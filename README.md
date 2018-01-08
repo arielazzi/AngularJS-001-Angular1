@@ -88,5 +88,14 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 </meu-painel>
 ```
 
+---
 
 
+### Observações - Aula 5 (Filter)
+
+ * ng-model - permite ler e propagar alterações de dados a partir da view
+ * Diretiva ng-model-options="{debounce : 500}" - Posterga o two-way data binding
+ * | filter : filtro - Realiza um filtro dinamicamente com base no valor da ng-model `filtro`
+ * ngAnimete - Habilita para uma série de diretivas a capacidade de adicionarem ou removerem classes de acordo com o estado de seus elementos. Fazendo uma analogia com CSS, é como se fossem pseudo classes.
+
+---
