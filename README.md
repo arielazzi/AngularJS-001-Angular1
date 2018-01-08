@@ -52,6 +52,13 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
  * ddo - Directive Definition Object
  * ddo.restrict - restrições da forma de chamada da diretiva
  * ddo.transclude/ng-transclude - Mecanismo de transclusão (Inserir HTML)
+
+#### Restrições 
+
+> * `A` - only matches attribute name
+> * `E` - only matches element name
+> * `C` - only matches class name
+> * `M` - only matches comment
  
  #### Exemplo
  
@@ -59,13 +66,8 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
  angular.module('minhasDiretivas', [])
 .directive('meuPainel', function() {
 
-	/* Directive Definition Object */
 	var ddo = {};
 
-	/*
-	A - Atribute - <div meu-painel></div>
-	E - Element  - <meu-painel></meu-painel>
-	*/
 	ddo.restrict = "AE";
 
 	ddo.scope = {
@@ -87,9 +89,4 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 ```
 
 
-#### Restrições 
 
-> * `A` - only matches attribute name
-> * `E` - only matches element name
-> * `C` - only matches class name
-> * `M` - only matches comment
