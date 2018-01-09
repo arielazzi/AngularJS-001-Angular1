@@ -99,3 +99,11 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
  * ngAnimete - Habilita para uma série de diretivas a capacidade de adicionarem ou removerem classes de acordo com o estado de seus elementos. Fazendo uma analogia com CSS, é como se fossem pseudo classes.
 
 ---
+
+### Observações - Aula 6 (Routes)
+ 
+ * Single Page Applications - Aplicação de única página
+ * view Parcial - Partes de código que são injetadas na ng-view
+ * Diretiva ng-view - Lacuna que recebe o conteúdo parcial
+ * Módulo ngRoute - Direciona e ele já faz o trabalho de atualizar index.html automaticamente com o conteúdo da página. (Pega a view parcial e insere na ng-view)
+---
