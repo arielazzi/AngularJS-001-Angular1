@@ -103,7 +103,8 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 ### Observações - Aula 6 (Routes)
  
  * Single Page Applications - Aplicação de única página
- * view Parcial - Partes de código que são injetadas na ng-view
+ * view Parcial - são fragmentos de páginas que são carregados dinamicamente e são injetadas na ng-view
  * Diretiva ng-view - Lacuna que recebe o conteúdo parcial
  * Módulo ngRoute - Direciona e ele já faz o trabalho de atualizar index.html automaticamente com o conteúdo da página. (Pega a view parcial e insere na ng-view)
+ * ng-src - Com isso, apenas Angular processará a diretiva, inclusive só depois da AE ter sido avaliada.
 ---
