@@ -107,4 +107,12 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
  * Diretiva ng-view - Lacuna que recebe o conteúdo parcial
  * Módulo ngRoute - Direciona e ele já faz o trabalho de atualizar index.html automaticamente com o conteúdo da página. (Pega a view parcial e insere na ng-view)
  * ng-src - Com isso, apenas Angular processará a diretiva, inclusive só depois da AE ter sido avaliada.
+
+---
+
+### Observações - Aula 7 (Validação)
+ 
+ * ng-submit (ng-click, ng-blur, ...) - Para cada evento do JS existe uma diretiva do angular para interação
+ * novalidate(inserido no form) - Precisamos abdicar do sistema de validação do HTML5 e abraçar totalmente o do Angular. Sendo assim, precisamos desabilitar o sistema de validação do HTML5.
+
 ---
