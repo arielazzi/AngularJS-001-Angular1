@@ -149,7 +149,7 @@ $http.delete('v1/fotos/' + foto._id)
 
  ```
 
- * Ajustes
+ * Ajustes de exibição
 
 ```js
 	(grupo.nome | uppercase)
@@ -173,4 +173,25 @@ $http.delete('v1/fotos/' + foto._id)
 
 	return ddo;
 });
+```
+
+---
+
+### Observações - Aula 10 (Angular Resource)
+
+ * Uma factory que cria um objeto de recurso que permite interagir com as fontes de dados RESTful do lado do servidor.
+
+ * $resource(url, paramDefaults, actions)
+```js
+angular.module('meusServicos', ['ngResource'])
+.factory('recursoFoto', function($resource) {
+
+	return $resource('v1/fotos/:fotoId', null, {
+		update : {
+			method : 'PUT'
+		}
+	});
+
+});
+
 ```
