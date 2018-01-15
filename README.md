@@ -120,7 +120,7 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
 ### Observações - Aula 8 (Edição/Exclusão)
 
 
-o truque com a função splice para evitar uma nova requisição
+ * o truque com a função splice para evitar uma nova requisição
 
 ```js
 $http.delete('v1/fotos/' + foto._id)
@@ -137,3 +137,40 @@ $http.delete('v1/fotos/' + foto._id)
 ```
 
  * $routeParams - Pega os parâmetros passados nas rotas.
+
+---
+
+### Observações - Aula 9 (Novas Funcionalidades)
+
+ * ng-options - (value) as (exibição) for (value) as (dataset)
+
+ ```js
+	ng-options="grupo._id as grupo.nome for grupo in grupos"
+
+ ```
+
+ * Ajustes
+
+```js
+	(grupo.nome | uppercase)
+``` 
+
+ * passando expressão para diretiva (uma chamada de função)
+
+```js
+.directive('meuBotaoPerigo', function() {
+
+	var ddo = {};
+
+	ddo.restrict = "E";
+
+	ddo.scope = {
+		nome : '@',
+		acao : '&'
+	};
+
+	ddo.template = "<button ng-click='acao(foto)'' class='btn btn-danger btn-block'>{{nome}}</button>";
+
+	return ddo;
+});
+```
