@@ -116,3 +116,24 @@ O projeto Alurapic utiliza [Express](http://expressjs.com/) para criar endpoints
  * novalidate(inserido no form) - Precisamos abdicar do sistema de validação do HTML5 e abraçar totalmente o do Angular. Sendo assim, precisamos desabilitar o sistema de validação do HTML5.
 
 ---
+
+### Observações - Aula 8 (Edição/Exclusão)
+
+
+o truque com a função splice para evitar uma nova requisição
+
+```js
+$http.delete('v1/fotos/' + foto._id)
+		.success(function(){
+			var indiceFoto = $scope.fotos.indexOf(foto);
+			$scope.fotos.splice(indiceFoto, 1);
+			$scope.mensagem = 'Foto ' + foto.titulo + ' foi removida com sucesso!';
+		})
+		.error(function(erro) {
+			console.log(erro);
+			$scope.mensagem = 'Não foi possível remocer a foto ' + foto.titulo;
+		});	
+
+```
+
+ * $routeParams - Pega os parâmetros passados nas rotas.
