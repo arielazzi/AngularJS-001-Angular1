@@ -195,3 +195,79 @@ angular.module('meusServicos', ['ngResource'])
 });
 
 ```
+ * GET
+
+```js
+recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto) {
+            $scope.foto = foto; 
+        }, function(erro) {
+            console.log(erro);
+            $scope.mensagem = 'Não foi possível obter a foto'
+        });
+
+```
+
+ * PUT (Criando na factory)
+
+```js
+recursoFoto.update({ fotoId : $scope.foto._id }, $scope.foto, function() {
+					$scope.mensagem = 'A foto ' + $scope.foto.titulo + ' foi alterada com sucesso!';
+				}, function(erro) {
+					$scope.mensagem = 'Não foi possível alterar a foto ' + $scope.foto.titulo;
+					console.log(erro);
+				});
+
+```
+
+ * POST
+
+```js
+recursoFoto.save($scope.foto, function() {
+					$scope.foto = {};
+					$scope.mensagem = 'Foto incluída com sucesso!';
+				}, function(erro) {
+					$scope.mensagem = 'Não foi possível incluir a foto!';
+					console.log(erro);
+				});
+
+```
+
+ * DELETE
+
+```js
+recursoFoto.delete({ fotoId : foto._id }, function() {
+
+			var indiceFoto = $scope.fotos.indexOf(foto);
+			$scope.fotos.splice(indiceFoto, 1);
+			$scope.mensagem = 'Foto ' + foto.titulo + ' foi removida com sucesso!';
+
+		}, function() {
+
+			console.log(erro);
+			$scope.mensagem = 'Não foi possível remocer a foto ' + foto.titulo;
+
+		})
+
+```
+
+---
+
+### Observações - Aula 11 (Melhorando o código)
+
+ * Factory com promisse
+
+```js
+.factory('cadastroDeFotos', function(recursoFoto, $q){
+
+	var servico = {};
+
+	servico.cadastrar = function(foto) {
+		return $q(function(resolve, reject){
+			
+		});
+	};
+
+	return servico;
+
+});
+```
