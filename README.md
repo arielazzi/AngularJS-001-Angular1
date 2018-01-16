@@ -207,7 +207,7 @@ recursoFoto.get({fotoId: $routeParams.fotoId}, function(foto) {
 
 ```
 
- * PUT (Criando na factory)
+ * PUT (Criado na factory)
 
 ```js
 recursoFoto.update({ fotoId : $scope.foto._id }, $scope.foto, function() {
@@ -271,3 +271,6 @@ recursoFoto.delete({ fotoId : foto._id }, function() {
 
 });
 ```
+
+ * resolve() - caso a promessa foi bem sucedida
+ * reject()  - Caso a promessa falhou

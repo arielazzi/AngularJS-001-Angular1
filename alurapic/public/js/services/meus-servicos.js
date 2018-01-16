@@ -22,11 +22,21 @@ angular.module('meusServicos', ['ngResource'])
 					});
 					
 				}, function(erro) {
-					reject();
+					console.log(erro);
+					reject({ mensagem : 'Não foi possível alterar a foto ' + foto.titulo });
 				});
 
 			} else {
 
+				recursoFoto.save(foto, function() {
+					resolve({
+						mensagem : 'Foto ' + foto.titulo + ' incluida com sucesso!',
+						inclusao : true
+					});
+				}, function(erro) {
+					console.log(erro);
+					reject({ mensagem : 'Não foi possível incluir a foto ' + foto.titulo });
+				});
 			} 
 		});
 	};
