@@ -1,4 +1,4 @@
-angular.module('alurapic').controller('FotoController', function($scope, cadastroDeFotos, $routeParams) {
+angular.module('alurapic').controller('FotoController', function($scope, cadastroDeFotos, recursoFoto, $routeParams) {
 
 	$scope.foto = {};
 	$scope.mensagem = '';
@@ -26,6 +26,7 @@ angular.module('alurapic').controller('FotoController', function($scope, cadastr
 				$scope.mensagem = dados.mensagem;
 				// Limpa o formulario se for inclusão
 				if($scope.inclusao) $scope.foto = {};
+				
 			})
 			.catch(function(dados) {
 				$scope.mensagem = dados.mensagem;

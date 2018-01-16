@@ -274,3 +274,178 @@ recursoFoto.delete({ fotoId : foto._id }, function() {
 
  * resolve() - caso a promessa foi bem sucedida
  * reject()  - Caso a promessa falhou
+
+---
+
+### Observações - Aula 12 (Mais sobre diretivas)
+
+ * Watchers - pode ser utilizado apenas na fase de links
+ * $watch - É executado sempre que a propriedade for alterado 
+
+```js
+.directive('meuFocus', function() {
+	
+	var ddo = {};
+
+	ddo.restrict = 'A';
+
+	ddo.scope = { 
+		focado : '='
+	}
+
+	ddo.link = function(scope, element) {
+		scope.$watch('focado', function(){
+			if(scope.focado) {
+				element[0].focus();
+				scope.focado = false;
+			}
+		})
+
+	}
+
+	return ddo;
+});
+```
+
+ * $scope.$broadcast('nome evento') - transmite um evento
+
+```js
+.directive('meuFocus', function() {
+	
+	var ddo = {};
+
+	ddo.restrict = 'A';
+
+	ddo.link = function(scope, element) {
+		scope.$on('fotoCadastrada', function() {
+			element[0].focus();
+		})
+
+	}
+
+	return ddo;
+});
+```
+
+---
+
+
+#### BÔNUS: blindando-se contra minificação
+
+
+É extremamente comum a minificação de scripts para reduzir o tamanho dos arquivos e por conseguinte diminuir o uso de banda por parte do cliente, ainda mais se ele estiver em uma rede móvel como a 3G.
+
+O problema é que o processo de minificação altera o nome dos parâmetros das funções. Não há problema algum nisso, contanto que o novo nome seja trocado em todos os lugares em que é usado, porém o sistema de injeção de dependências do Angular é baseado no nome dos parâmetros. A conclusão disso é que nada mais funcionará no Angular após a minificação, já que os parâmetros das funções serão trocados por outros nomes aleatórios e menores que não tem nada a ver.
+
+Para solucionar este problema, o Angular possui o annotation system, um sistema de anotação que permite dizer o que deve ser injetado para cada parâmetro do controller, mesmo que seu nome seja trocado. Veja a solução:
+
+Este controller :
+
+```js
+
+angular.module('alurapic')
+    .controller('FotoController', function($scope, recursoFoto, $routeParams, cadastroDeFotos) {
+            // código omitido
+    });
+```
+Vira:
+
+```js
+angular.module('alurapic')
+    .controller('FotoController', ['$scope', 'recursoFoto', '$routeParams', 'cadastroDeFotos', function($scope, recursoFoto, $routeParams, cadastroDeFotos) {
+            // código omitido
+    }]);
+
+```
+Veja que o segundo parâmetro do controller é um array que recebe primeiro todos os artefatos que o controller do Angular receberá e por último a função que define o controller. O processo de minificação jamais tocará nos dados do array e o Angular segue a convenção que o primeiro parâmetro do array será injetado como primeiro parâmetro da função do controller. Se o nome do parâmetro da função do controller muda, tudo continuará funcionando.
+
+A mesma coisa pode ser feita com diretivas e serviços.
+
+---
+
+
+#### BÔNUS: diretivas que buscam dados
+
+
+O treinamento contribuiu com uma visão geral sobre diretivas, porém não deixamos de aprender bastante coisa, inclusive truques. Pode ser que tenha passado na sua cabeça a seguinte pergunta: como criar diretivas que busquem dados do servidor e utilizem esses dados? Pergunta justa, não? Muito bem, se você fez todos os exercícios até agora, merece esse bônus, vamos lá!
+
+Vamos criar uma diretiva chamada meusTitulos. Essa diretiva buscará fotos do servidor e montará uma lista com apenas os títulos dessas fotos. Vamos alterar public/js/directives/minhas-diretivas.js:
+
+```
+angular.module('minhasDiretivas', [])
+    // diretivas anteriores omitidas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        return ddo;
+    });
+
+```
+Até aqui, nenhuma novidade. Precisamos agora elaborar o código que busca as fotos do servidor. Para isso, precisaremos de recursoFoto, mas como? Sabemos que ele é um artefato injetável em controllers em serviços, mas em diretivas? A solução mora na propriedade controller do nosso ddo:
+
+```js
+angular.module('minhasDiretivas', [])
+    // diretivas anteriores comentadas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, recursoFoto) {
+        };
+        return ddo;
+    });
+```
+
+A propriedade controller permite passarmos uma função que permite termos acesso aos injetáveis do Angular, como $scope e recursoFoto. Há outros elementos exclusivos que não abordaremos aqui. Você deve estar se perguntando: ok, você me convenceu, mas como recursoFoto foi injetado se não temos o módulo meusServicos como dependência de minhasDiretivas? Resposta elementar caro aluno: nosso módulo principal da aplicação já carrega o módulo meusServicos, inclusive o módulo minhasDiretivas, por isso recursoFoto é injetável. Porém, fica mais bonito declarar explicitamente essa dependência em nosso módulo, sem efeito colateral algum.
+
+Agora, basta buscarmos nossas fotos e adicionarmos o resultado em $scope.titulos. Veja que acessamos esta propriedade através da diretiva ng-repeat do nosso template:
+
+
+```js
+// explicitei a dependência do módulo `meusServicos`
+angular.module('minhasDiretivas', ['meusServicos'])
+    // diretivas anteriores comentadas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, recursoFoto) {
+            recursoFoto.query(function(fotos) {
+                $scope.titulos = fotos; // ainda não é isso que queremos!
+            });
+        };
+        return ddo;
+    });
+
+```
+
+Espere um pouco, $scope.titulos está recebendo a lista de fotos, não queremos isso! Queremos é uma lista de títulos. Que tal um pouquinho de JavaScript do "bem" para nos ajudar na tarefa de criar uma nova lista a partir de outra? Vamos usar a função .map:
+
+
+```js
+angular.module('minhasDiretivas', ['meusServicos'])
+    // diretivas anteriores comentadas
+    .directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, recursoFoto) {
+            recursoFoto.query(function(fotos) {
+                $scope.titulos = fotos.map(function(foto) {
+                    return foto.titulo;
+                });    
+            });
+        };
+        return ddo;
+    });
+```
+
+
+A função map itera sobre nossa lista fornecendo acesso ao elemento da iteração no seu parâmetro. Poderia ser qualquer nome, mas nada mais justo chamarmos de foto, já que estamos iterando sobre uma lista de fotos. Para cada foto retornamos seu titulo, isto é, no final da iteração teremos uma nova lista, mas de títulos apenas.
+
+Muito bem, agora é só utilizarmos nossa diretiva. Para não bagunçar nosso projeto, vamos adicioná-la como último elemento da parcial `principal.html', assim:
+
+```html
+<meus-titulos></meus-titulos>
+```
